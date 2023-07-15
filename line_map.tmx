@@ -20,7 +20,7 @@
 798,798,798,798,798,798,798,736,799,248,248,248,248,248,248
 </data>
  </layer>
- <objectgroup id="2" name="Object Layer 1">
+ <objectgroup id="2" name="waypoints">
   <object id="1" x="430" y="2">
    <polyline points="0,0 4,190 -336,190 -334,524 -190,524 -190,334 242,336 244,618 96,620 100,472 -46,478 -44,666 -428,666"/>
   </object>
