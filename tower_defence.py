@@ -63,7 +63,7 @@ def create_turret(mouse_pos):
     #calculate the sequental number of tile
     mouse_tile_num =  (mouse_tile_y * c.COLS) + mouse_tile_x
     #check if tile is grass
-    if world.tile_map[mouse_tile_num] == 62:
+    if world.tile_map[mouse_tile_num] == 1:
         #check if their is turret there
         space_is_free = True
         for turret in turret_group:
@@ -167,7 +167,7 @@ while run:
         #if turret is selected then show the upgrade button
         if selected_turret:
             #if a turret can be upgraded then show the upgrade button
-            if selected_turret.upgrade_level < c.TURRET_LEVELS:
+            if selected_turret.upgrade_level < c.TURRET_LEVEL:
                 if upgrade_button.draw(screen):
                     if world.money >= c.UPGRADE_COST:   
                         selected_turret.upgrade() 
