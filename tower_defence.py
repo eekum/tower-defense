@@ -153,7 +153,7 @@ while run:
     #draw button
     #button of placing turrets
     if turret_button.draw(screen):
-        placing_turret = True
+        placing_turrets = True
     #if placing turret then shiw the cancel button as well
     if placing_turrets == True:
         #show cursor turret
@@ -163,14 +163,14 @@ while run:
         if cursor_pos[0] <= c.SCREEN_WIDTH:
             screen.blit(cursor_turret, cursor_rect)
         if cancel_button.draw(screen):
-            placing_turret = False
+            placing_turrets = False
         #if turret is selected then show the upgrade button
         if selected_turret:
             #if a turret can be upgraded then show the upgrade button
-            if select_turret.upgrade_level < c.TURRET_LEVELS:
+            if selected_turret.upgrade_level < c.TURRET_LEVELS:
                 if upgrade_button.draw(screen):
                     if world.money >= c.UPGRADE_COST:   
-                        select_turret.upgrade() 
+                        selected_turret.upgrade() 
                         world.money -= c.UPGRADE_COST           
 
     
@@ -187,12 +187,12 @@ while run:
                 #clear selected turrets
                 selected_turret = None
                 clear_selection()
-                if placing_turret == True:
+                if placing_turrets == True:
                     #check if there is enough money for a turret
                     if world.money >= c.BUY_COST:
                         create_turret(mouse_pos)
                 else:
-                    select_turret = select_turret(mouse_pos)
+                    selected_turret = select_turret(mouse_pos)
     #update display
     pg.display.flip()
 
