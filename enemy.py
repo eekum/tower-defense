@@ -34,12 +34,13 @@ class Enemy(pg.sprite.Sprite):
             #enemy reached end of path
             self.kill()
             world.health -= 1
+            world.missed_enemies += 1
 
         #calculate distance to target
         dist = self.movement.length()
         #check if remaining distance is greater then enemy speed
-        if dist >= self.speed:
-            self.pos += self.movement.normalize() * self.speed
+        if dist >= (self.speed * world.game_speed):
+            self.pos += self.movement.normalize() * self.speed(world.game_speed)
         else:
             if dist != 0:
                 self.pos += self.movement.normalize() * dist
@@ -57,5 +58,6 @@ class Enemy(pg.sprite.Sprite):
 
     def check_alive(self, world):
         if self.health <= 0:
+            world.killed_enemies += 1
             world.money += c.KILL_REWARD
             self.kill()

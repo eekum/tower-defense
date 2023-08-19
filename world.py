@@ -6,6 +6,7 @@ from enemy_data import ENEMY_SPAWN_DATA
 class World():
     def __init__(self, data, map_image):
         self.level = 1
+        self.game_speed = 1
         self.health = c.HEALTH     
         self.money = c.MONEY   
         self.tile_map = []
@@ -14,6 +15,8 @@ class World():
         self.image = map_image
         self.enemy_list = []
         self.spawned_enemies = 0
+        self.killed_enemies = 0
+        self.missed_enemies = 0
 
     def process_data(self):
         #look through data to axtract relevant info
@@ -42,6 +45,16 @@ class World():
         #now randomize the lisr ro shuffle enemies
         random.shuffle(self.enemy_list)
 
+    def check_level_complete(self):
+        if (self.killed_enemies + self.missed_enemies) == len(self.enemy_list):
+            return True
+
+    def reset_level(self):
+        #reset enemy variable
+        self.enemy_list = []
+        self.spawned_enemies = 0
+        self.killed_enemies = 0
+        self.missed_enemies = 0
 
 
     def draw(self, surface):
