@@ -47,14 +47,13 @@ cancel_image = pg.image.load('images/assets/sprites/buttons/cancel.png').convert
 upgrade_turret_image = pg.image.load('images/assets/sprites/buttons/upgrade_turret.png').convert_alpha()
 begin_image = pg.image.load('images/assets/sprites/buttons/begin.png').convert_alpha()
 restart_image = pg.image.load('images/assets/sprites/buttons/restart.png').convert_alpha()
-fast_forward_image = pg.image.load('images/assets/sprites/buttons/fast_forward.png').convert_alpha()
 #gui
 heart_image = pg.image.load('images/assets/sprites/gui/heart.png').convert_alpha()
 coin_image = pg.image.load('images/assets/sprites/gui/coin.png').convert_alpha()
 logo_image = pg.image.load('images/assets/sprites/gui/logo.png').convert_alpha()
 
 #load sounds
-shot_fx = pg.mixer.Sound('assets/sfx/shot.wav')
+shot_fx = pg.mixer.Sound('sfx/shot.wav')
 shot_fx.set_volume(0.5)
 
 #load fonts for displaying text om screen
@@ -129,7 +128,7 @@ cancel_button = Button(c.SCREEN_WIDTH + 50, 180, cancel_image, True)
 upgrade_button = Button(c.SCREEN_WIDTH + 5, 180, upgrade_turret_image, True)
 begin_button = Button(c.SCREEN_WIDTH + 60, 300, begin_image, True)
 restart_button = Button(310, 300, restart_image, True)
-fast_forward_button = Button(c.SCREEN_WIDTH + 50, 300, fast_forward_image, False)
+
 
 #game loop
 run = True
@@ -153,7 +152,7 @@ while run:
 
         #update groups
         enemy_group.update(world)
-        turret_group.update(enemy_group, world)
+        turret_group.update(enemy_group)
 
 
         #highlight slected turret
@@ -180,10 +179,6 @@ while run:
             if begin_button.draw(screen):
                 level_started = True
         else:
-            #fast forward option
-            world.game_speed = 1
-            if fast_forward_button.draw(screen):
-                world.game_speed = 2
             #spawn enemies
             if pg.time.get_ticks() - last_enemy_spawn > c.SPAWN_COOLDOWN:
                 if world.spawned_enemies < len(world.enemy_list):
@@ -196,7 +191,7 @@ while run:
         #check if the wave is finnished
         if world.check_level_complete() == True:
             world.money += c.LEVEL_COMPLETE_REWARD
-            world.level = 1
+            world.level += 1
             level_started = False
             last_enemy_spawn = pg.time.get_ticks()
             world.reset_level()

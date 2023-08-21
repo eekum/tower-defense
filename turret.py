@@ -53,13 +53,13 @@ class Turret(pg.sprite.Sprite):
             animation_list.append(temp_img)
         return animation_list
 
-    def update(self, enemy_group, world):
+    def update(self, enemy_group):
         #if target picked, play firing animation
         if self.target:
             self.play_animation()
         else:
             #search for new target once turret has cooled down
-            if pg.time.get_ticks() - self.last_shot > (self.cooldown / world.game_speed):
+            if pg.time.get_ticks() - self.last_shot > self.cooldown:
                 self.pick_target(enemy_group)
 
     def pick_target(self, enemy_group):
@@ -70,7 +70,7 @@ class Turret(pg.sprite.Sprite):
         for enemy in enemy_group:
             if enemy.health > 0:
                 x_dist = enemy.pos[0] - self.x
-                y_dist = enemy.pos[0] - self.y
+                y_dist = enemy.pos[1] - self.y
                 dist = math.sqrt(x_dist ** 2 + y_dist ** 2)
                 if dist < self.range:
                     self.target = enemy
